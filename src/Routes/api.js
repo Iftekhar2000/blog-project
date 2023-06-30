@@ -20,10 +20,10 @@ router.post("/reset-password-otp-verify", verifyOtp);
 router.post("/reset-password", resetPassword)
 
 //blog router endpoint
-router.post("/create-blog", createBlog);
-router.get("/blogs", getAllBlogs);
-router.get("/blog/:id", getBlogById);
-router.patch("/blog/:id", updateBlog);
-router.delete("/blog/:id", deleteBlog);
+// router.post("/create-blog", createBlog);
+// router.get("/blogs", getAllBlogs);
+// router.get("/blog/:id", getBlogById);
+// router.patch("/blog/:id", updateBlog);
+// router.delete("/blog/:id", deleteBlog);
 
 module.exports = router;

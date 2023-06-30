@@ -1,6 +1,6 @@
 // Basic module
 
-const dotenv = require('dotenv')
+const dotenv = require('dotenv').config()
 const express = require("express");
 const app = new express;
 const multer = require("multer");
@@ -18,7 +18,8 @@ const jwt = require("jsonwebtoken");
 
 // Rate limiter
 
-const rateLimit = require('express-rate-limit')
+const rateLimit = require('express-rate-limit');
+const router = require('./src/Routes/api');
 
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutes
@@ -44,16 +45,28 @@ app.use(helmet);
 app.use(hpp);
 app.use(mongoSanitize);
 
-app.use("/", router)
+
 
 
 
 // Mongo DB connect
-
     mongoose.connect(process.env.DATABASE_URI) //CONNECTION
                         .then(()=>console.log("database connected"))    //ON SUCCESS
-                        .catch(err => console.log("database connection failed : check DATABASE_URI"))   //ON FAILED
+                        .catch(err => console.log("database connection failed : check DATABASE_URI",err))   //ON FAILED
+
+// router 
+app.use("/", router)
+app.use("*", (req,res,next) => {
+	res.code(404).json({Error : "requested url doesn't exist"})
+})
+						
+//listen 
+const startApp = () =>{
+	app.listen(process.env.PORT, ()=>{
+		console.log(`Server running on port ${process.env.PORT}`)
+	})
+}
 
 
 
-module.exports = app
+module.exports = startApp

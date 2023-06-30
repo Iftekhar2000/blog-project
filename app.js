@@ -43,9 +43,17 @@ app.use(bodyParser);
 app.use(helmet);
 app.use(hpp);
 app.use(mongoSanitize);
-app.use(bcrypt);
 
+app.use("/", router)
 
 
 
 // Mongo DB connect
+
+    mongoose.connect(process.env.DATABASE_URI) //CONNECTION
+                        .then(()=>console.log("database connected"))    //ON SUCCESS
+                        .catch(err => console.log("database connection failed : check DATABASE_URI"))   //ON FAILED
+
+
+
+module.exports = app

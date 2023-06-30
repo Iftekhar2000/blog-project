@@ -1,3 +1,8 @@
+const dotenv = require('dotenv').config()
+const app = require('./app');
 
-// fifth commit
-const dotenv = require('dotenv');
+
+
+app.listen(process.env.PORT, ()=>{
+    `server running on port ${process.env.PORT}`
+})
